@@ -1,47 +1,189 @@
-# ROMP-LLM Chat — Petri Net Generator
+# ROMP-LLM: AI-Powered Petri Net Generator
 
-A chat-first React application. The user describes a system, the AI asks for missing model information, and then builds a structured Petri Net using API operations. The diagram is rendered as SVG in the browser and can be saved/downloaded as PNG or JPG. There is no JSON download button or warehouse workflow.
+## Project Overview
 
-## Example
-User: "Create a predator-prey model with 50 prey and 25 predators."
-Assistant asks for the prey birth rate, hunt/predation rate and time unit if missing.
-User: "Birth rate 0.08 per day and hunt rate 0.02 per day."
-Assistant builds a model with Prey and Predators places, Reproduction and Predation transitions, arcs and transition rate labels.
+ROMP-LLM is an AI-powered web application that converts natural language system requirements into structured Petri Net diagrams.
+
+Users describe a system in a conversational chat interface. The AI assistant identifies missing parameters, asks follow-up questions, and generates a Petri Net model containing places, transitions, arcs, initial tokens, and transition rate labels.
+
+The application provides a simple, interactive interface inspired by modern AI chat applications.
+
+## Features
+
+- **AI-powered chat:** Describe a system using natural language.
+- **Interactive model generation:** Generate Petri Net places, transitions, and arcs.
+- **Clarification questions:** The AI asks for missing model parameters before generating the diagram.
+- **Chat history:** Revisit previous conversations.
+- **Scrollable interface:** Convenient conversation navigation.
+- **Dark and light themes:** Switch between visual themes.
+- **Demo conversation:** Explore a predator–prey example.
+- **Diagram preview:** View generated Petri Net diagrams.
+- **Image export:** Download diagrams in PNG and JPG formats.
+- **Saved diagrams:** Store generated diagram images on the server.
+
+## Example Use Case: Predator–Prey Model
+
+A user can request:
+
+"Create a predator–prey model with 50 prey and 25 predators."
+
+The AI assistant can ask for additional information, including:
+
+- Prey birth rate
+- Predator hunting or predation rate
+- Time unit
+
+After receiving the required information, the application generates a Petri Net model with:
+
+- Prey place
+- Predators place
+- Reproduction transition
+- Predation transition
+- Connecting arcs
+- Initial token counts
+- Transition rate labels
+
+## Technology Stack
+
+### Frontend
+- React.js
+- Vite
+- JavaScript
+- CSS
+- Lucide React icons
+
+### Backend
+- Node.js
+- Express.js
+- OpenAI API
+
+### Diagram Output
+- SVG-based Petri Net rendering
+- PNG and JPG image export
+
+## Project Structure
+
+```text
+romp-llm-chat/
+├── client/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── style.css
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+├── server/
+│   ├── data/
+│   │   └── diagrams/
+│   ├── index.js
+│   ├── package.json
+│   └── .env.example
+├── package.json
+├── .gitignore
+└── README.md
+```
 
 ## Requirements
-- Node.js 20+
-- OpenAI API key (for AI chat)
 
-## Install and run (Windows PowerShell)
-Open a terminal in the folder that contains the root `package.json`, then:
+- Node.js 20 or later
+- npm
+- Git (for source-code management)
+- OpenAI API key for live AI functionality
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/YOUR-GITHUB-USERNAME/romp-llm-petri-net-generator.git
+```
+
+Enter the project directory:
+
+```bash
+cd romp-llm-petri-net-generator
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create the backend environment file:
+
+```bash
+cp server/.env.example server/.env
+```
+
+On Windows PowerShell, use:
+
 ```powershell
-npm.cmd install
 Copy-Item server/.env.example server/.env
 ```
-Edit `server/.env` and add your key:
+
+Open `server/.env` and configure your API key:
+
 ```env
 OPENAI_API_KEY=your_api_key_here
-OPENAI_CHAT_MODEL=gpt-5.5
+OPENAI_CHAT_MODEL=your_available_model_name
 PORT=4000
 ```
-Start:
+
+Never publish your real API key.
+
+## Run the Application
+
+Start the frontend and backend together:
+
+```bash
+npm run dev
+```
+
+On Windows PowerShell, you can also run:
+
 ```powershell
 npm.cmd run dev
 ```
-Open http://localhost:5173
 
-If PowerShell cannot find `package.json`, first `cd` into the extracted `romp-llm-chat` folder. Run `dir package.json` to confirm you are in the correct directory.
+Open the application in your browser:
 
-## Interface features
-- Scrollable conversation area with a fixed message composer.
-- Chat history saved in the browser (local storage); select a previous chat in the left sidebar.
-- Light/dark theme toggle in the top bar; theme choice is remembered.
-- Load project demo button inserts a complete predator–prey example conversation and sample Petri Net output without requiring an API call.
+http://localhost:5173
 
-## Export
-The diagram card offers PNG and JPG download buttons. "Save image" stores the rendered diagram on the server. Saved diagrams appear in the small gallery accessible from the header.
+## Build the Frontend
 
-## Notes
-- The LLM is instructed to ask for missing information and to update the model through structured tools, not to write CPN ML code.
-- The current simulator/model is a basic prototype using integer tokens and transition rate labels. It is not a full CPN ML compiler or continuous-time stochastic simulator.
-- Rate labels are metadata in this prototype; they do not automatically define a statistically validated simulation.
+To create a production frontend build:
+
+```bash
+npm run build
+```
+
+The generated frontend files will be available in:
+
+```text
+client/dist/
+```
+
+## Important Notes
+
+- The frontend and backend are separate components of this application.
+- The Vite development server proxies API requests to the local backend.
+- Live AI functionality requires a valid OpenAI API key.
+- The demo conversation can be used without making an AI API call.
+- This prototype creates Petri Net diagrams and displays transition rate labels. It is not yet a full CPN ML compiler or statistically validated stochastic simulator.
+
+## Future Improvements
+
+- Advanced Petri Net editing
+- More Petri Net model types
+- Model validation
+- Simulation engine
+- Improved diagram layout
+- Deployment to a public hosting platform
+- User authentication and cloud-based project storage
+
+## Author
+
+Developed as an AI-assisted Petri Net modeling project.
+
